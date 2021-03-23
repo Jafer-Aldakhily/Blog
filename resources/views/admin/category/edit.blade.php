@@ -2,6 +2,10 @@
 
 @section('content')
 
+@if (Session::has('success'))
+    <div class="alert alert-warning">{{ Session('success') }}</div>
+@endif
+
 <!-- SELECT2 EXAMPLE -->
 <div class="card card-default">
     <div class="card-header">
@@ -15,7 +19,7 @@
     <!-- /.card-header -->
     <div class="card-body">
         <div class="container">  
-          <form action="#" method="POST">
+          <form action="{{ route('category.update',$category->id) }}" method="POST">
             @csrf
             @method('PUT')   
         <div class="row">
@@ -23,7 +27,7 @@
           <div class="form-group">
               <label class="col-form-label ml-2">Category Name</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="category_name" placeholder="Category Name">
+                <input type="text" class="form-control" name="category_name" placeholder="Category Name" value="{{ $category->name }}">
               </div>
 
           </div>
@@ -40,7 +44,7 @@
           <div class="form-group">
           <label class="col-form-label ml-2">Category Slug</label>
           <div class="col-sm-10">
-          <input type="text" class="form-control" name="category_slug" placeholder="Category Slug">
+          <input type="text" class="form-control" name="category_slug" placeholder="Category Slug" value="{{ $category->slug }}">
           </div>
           </div>
           <!-- /.form-group -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\admin\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -14,7 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category.index');
+        $categories = Category::latest()->paginate(5);
+        return view('admin.category.index' ,compact('categories'));
     }
 
     /**
@@ -35,7 +37,21 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validationData = $request->validate([
+            'category_name' => 'required',
+            'category_slug' => 'required'
+        ],
+        [
+            'category_name.required' => 'You should add category name',
+            'category_slug.required' => 'You should add category slug',
+
+        ]);
+
+        $category = new Category();
+        $category->name = $request->category_name;
+        $category->slug = $request->category_slug;
+        $category->save();
+        return redirect()->back()->with('success' , "Inserted Category Successfully");
     }
 
     /**
@@ -55,9 +71,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.category.edit',compact('category'));
     }
 
     /**
@@ -67,9 +83,13 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $category->name = $request->category_name;
+        $category->slug = $request->category_slug;
+        $category->save();
+
+        return redirect()->back()->with('success' , "Updated Category Successfully");
     }
 
     /**
@@ -78,8 +98,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->back()->with('success' , "Deleted Category Successfully");
     }
 }

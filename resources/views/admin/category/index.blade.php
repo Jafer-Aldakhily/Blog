@@ -2,6 +2,11 @@
 
 @section('content')
 
+@if (Session::has('success'))
+    <div class="alert alert-danger">{{ Session('success') }}</div>
+@endif
+
+
 <div class="card">
     <div class="card-header">
       <h3 class="card-title">Categories List</h3>
@@ -20,24 +25,37 @@
         </tr>
         </thead>
         <tbody>
+          @php
+              $i = 1;
+          @endphp
+          @foreach ($categories as $category)
+              <tr>
+                <td>{{ $i++ }}</td>
+                <td>{{ $category->name }}</td>
+                <td>{{ $category->slug }}</td>
+                <td><a href="{{ route('category.edit',$category->id) }}"><i class="fas fa-edit"></i></a></td>
+                <form id="delete-category-{{ $category->id }}" method="POST" action="{{ route('category.destroy',$category->id) }}" style="none;">
+                  @csrf
+                  @method('DELETE')
+                  <td><a href=""><i class="fas fa-trash-alt text-danger" onclick=" 
+                  if(confirm('Are tou sure delete it ?'))
+                  {
+                    event.preventDefault();
+                    document.getElementById('delete-category-{{ $category->id }}').submit();
+                  }
+                  
+                  
+                  else
+                  {
+                    event.preventDefault();
+                  }
+                  
+                  "></i></a></td>
+                </form>
 
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 4.0
-          </td>
-          <td>Win 95+</td>
-          <td> 4</td>
-          <td>X</td>
-        </tr>
-
-        <tr>
-            <td>Browser</td>
-            <td>Microsoft Edge</td>
-            <td>Win 95+</td>
-            <td>4</td>
-            <td>X</td>
-          </tr>
+              </tr>
+          @endforeach
+          
 
         </tbody>
       </table>

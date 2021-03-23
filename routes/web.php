@@ -64,20 +64,20 @@ Route::get('/home' , function(){
 });
 
 
-Route::get('/test0' , function()
-{
-    return view('admin.post.edit');
-});
+// Route::get('/test0' , function()
+// {
+//     return view('admin.post.edit');
+// });
 
 
-Route::get('/test1' , function()
-{
-    return view('admin.category.edit');
-});
+// Route::get('/test1' , function()
+// {
+//     return view('admin.category.edit');
+// });
 
-Route::get('/test2' , function()
-{
-    return view('admin.tag.edit');
-});
+// Route::get('/test2' , function()
+// {
+//     return view('admin.tag.edit');
+// });
 
 

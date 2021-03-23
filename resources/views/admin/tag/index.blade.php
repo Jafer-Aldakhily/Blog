@@ -2,6 +2,10 @@
 
 @section('content')
 
+@if (session()->has('success'))
+    <div class="alert alert-danger">{{ session('success') }}</div>
+@endif
+
 <div class="card">
     <div class="card-header">
       <h3 class="card-title">Tags List</h3>
@@ -21,23 +25,36 @@
         </thead>
         <tbody>
 
-        <tr>
-          <td>Trident</td>
-          <td>Internet
-            Explorer 4.0
-          </td>
-          <td>Win 95+</td>
-          <td> 4</td>
-          <td>X</td>
-        </tr>
+          @php
+          $i = 1;    
+          @endphp
 
-        <tr>
-            <td>Browser</td>
-            <td>Microsoft Edge</td>
-            <td>Win 95+</td>
-            <td>4</td>
-            <td>X</td>
+          @foreach ($tags as $tag)
+          <tr>
+            <td>{{ $i++ }}</td>
+            <td>{{ $tag->name }}</td>
+            <td>{{ $tag->slug }}</td>
+            <td><a href="{{ route('tag.edit',$tag->id) }}"><i class="fas fa-edit"></i></a></td>
+            <form id="delete-tag-{{ $tag->id }}" method="POST" action="{{ route('tag.destroy',$tag->id) }}" style="none;">
+              @csrf
+              @method('DELETE')
+              <td><a href=""><i class="fas fa-trash-alt text-danger" onclick=" 
+              if(confirm('Are tou sure delete it ?'))
+              {
+                event.preventDefault();
+                document.getElementById('delete-tag-{{ $tag->id }}').submit();
+              }
+              
+              
+              else
+              {
+                event.preventDefault();
+              }
+              
+              "></i></a></td>
+            </form>
           </tr>
+          @endforeach
 
         </tbody>
       </table>

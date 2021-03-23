@@ -1,6 +1,10 @@
 @extends('admin.app')
 
 @section('content')
+@if (Session::has('success'))
+    <div class="alert alert-success">{{ Session('success') }}</div>
+@endif
+
 
 <!-- SELECT2 EXAMPLE -->
 <div class="card card-default">
@@ -15,7 +19,7 @@
     <!-- /.card-header -->
     <div class="card-body">
         <div class="container">  
-          <form action="#" method="POST">
+          <form action="{{ route('category.store') }}" method="POST">
             @csrf   
         <div class="row">
         <div class="col-md-6 offset-md-4">

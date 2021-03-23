@@ -2,6 +2,10 @@
 
 @section('content')
 
+@if (session()->has('success'))
+    <div class="alert alert-warning">{{ session('success') }}</div>
+@endif
+
 <!-- SELECT2 EXAMPLE -->
 <div class="card card-default">
     <div class="card-header">
@@ -15,7 +19,7 @@
     <!-- /.card-header -->
     <div class="card-body">
         <div class="container">
-          <form action="#" method="POST">
+          <form action="{{ route('tag.update' , $tag->id) }}" method="POST">
             @csrf 
             @method('PUT')    
         <div class="row">
@@ -23,7 +27,7 @@
           <div class="form-group">
               <label class="col-sm-2 col-form-label">Tag Name</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" name="tag_name" placeholder="Tag Name">
+                <input type="text" class="form-control" name="tag_name" placeholder="Tag Name" value="{{ $tag->name  }}" >
               </div>
 
           </div>
@@ -40,12 +44,12 @@
           <div class="form-group">
           <label class="col-sm-2 col-form-label">Tag Slug</label>
           <div class="col-sm-10">
-          <input type="text" class="form-control" name="tag_slug" placeholder="Tag Slug">
+          <input type="text" class="form-control" name="tag_slug" placeholder="Tag Slug" value="{{ $tag->slug  }}">
           </div>
           </div>
           <!-- /.form-group -->
           <div class="form-group" style="margin-left:10px;">
-            <button type="submit" class="btn btn-primary">Create tag</button>
+            <button type="submit" class="btn btn-primary">Update tag</button>
           </div>
           <!-- /.form-group -->
 
@@ -54,11 +58,6 @@
 
       </div>
       <!-- /.row -->
-
-      <div class="row">
-          <div class="form-group">
-          </div>
-      </div>
 
     </form> 
         </div>

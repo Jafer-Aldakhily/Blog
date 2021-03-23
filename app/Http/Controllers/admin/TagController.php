@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\admin\Tag;
 
 class TagController extends Controller
 {
@@ -14,7 +15,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        return view('admin.tag.index');
+        $tags = Tag::latest()->paginate(3);
+        return view('admin.tag.index',compact('tags'));
     }
 
     /**
@@ -35,7 +37,21 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validationData = $request->validate([
+            'tag_name' => 'required',
+            'tag_slug' => 'required'
+        ],
+        [
+            'tag_name.required' => 'You should add tag name',
+            'tag_slug.required' => 'You should add tag slug',
+
+        ]);
+
+        Tag::create([
+            'name' => $request->tag_name,
+            'slug' => $request->tag_slug,
+        ]);
+        return redirect()->back()->with('success' , "Inserted tag Successfully");
     }
 
     /**
@@ -55,9 +71,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Tag $tag)
     {
-        //
+        return view('admin.tag.edit' , compact('tag'));
     }
 
     /**
@@ -67,9 +83,13 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tag $tag)
     {
-        //
+        $tag->name = $request->tag_name;
+        $tag->slug = $request->tag_slug;
+        $tag->save();
+
+        return redirect()->back()->with('success' , "Updated tag Successfully");
     }
 
     /**
@@ -78,8 +98,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return redirect()->back()->with('success' , "Delteed tag Successfully");
     }
 }
