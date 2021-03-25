@@ -35,8 +35,10 @@ Route::get('/', function () {
 
 Route::prefix('user')->group(function () {
 
-    Route::resource('/post', UserPostController::class);
+    Route::resource('/post', UserPostController::class );
 });
+
+
 
 // This route for End_User operations
 Route::resource('/blog', UserController::class);
@@ -58,26 +60,7 @@ Route::resource('/admin/panel', AdminController::class);
 
 
 
-
+// Admin home
 Route::get('/home' , function(){
     return view('admin.home');
 });
-
-
-// Route::get('/test0' , function()
-// {
-//     return view('admin.post.edit');
-// });
-
-
-// Route::get('/test1' , function()
-// {
-//     return view('admin.category.edit');
-// });
-
-// Route::get('/test2' , function()
-// {
-//     return view('admin.tag.edit');
-// });
-
-

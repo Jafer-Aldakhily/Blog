@@ -68,13 +68,9 @@
           <div class="form-group">
             <label>Categories</label>
             <select class="select2" multiple="multiple" name="categories[]" data-placeholder="Select a category one or more" style="width: 100%;">
-              <option>Alabama</option>
-              <option>Alaska</option>
-              <option>California</option>
-              <option>Delaware</option>
-              <option>Tennessee</option>
-              <option>Texas</option>
-              <option>Washington</option>
+              @foreach ($categories as $category)
+              <option value="{{ $category->id }}">{{ $category->name }}</option>
+              @endforeach
             </select>
 
           </div>
@@ -111,13 +107,9 @@
           <div class="form-group">
             <label>Tags</label>
             <select class="select2" multiple="multiple" name="tags[]" data-placeholder="Select a tag one or more" style="width: 100%;">
-              <option>Alabama</option>
-              <option>Alaska</option>
-              <option>California</option>
-              <option>Delaware</option>
-              <option>Tennessee</option>
-              <option>Texas</option>
-              <option>Washington</option>
+              @foreach ($tags as $tag)
+              <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+              @endforeach
             </select>
 
           </div>

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\admin\Category;
+use App\Models\admin\Tag;
 use Illuminate\Http\Request;
 use  App\Models\admin\Post;
 
@@ -25,8 +27,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('admin.post.create');
+    {   $categories = Category::all();
+        $tags = Tag::all();
+        return view('admin.post.create' , compact('categories','tags'));
     }
 
     /**
@@ -43,6 +46,8 @@ class PostController extends Controller
         $post->slug = $request->slug;
         $post->body = $request->editor1;
         $post->save();
+        $post->categories()->sync($request->categories);
+        $post->tags()->sync($request->tags);
         return redirect()->back()->with('success' , 'Inserted Post Successfully');
 
     }
@@ -66,7 +71,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.post.edit' , compact('post'));
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('admin.post.edit' , compact('post','categories','tags'));
     }
 
     /**
@@ -82,6 +89,8 @@ class PostController extends Controller
         $post->sub_title = $request->sub_title;
         $post->slug = $request->post_slug;
         $post->body = $request->editor1;
+        $post->categories()->sync($request->categories);
+        $post->tags()->sync($request->tags);
         $post->save();
         return redirect()->back()->with('success' , 'Updated Post Successfully');
 
