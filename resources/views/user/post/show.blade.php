@@ -32,12 +32,16 @@
         <div class="col-lg-8 col-md-10 mx-auto">
             <small>Created_at : {{ $post->created_at->diffForHumans() }}</small>
             @foreach ($post->categories as $category)
-                <small class="float-right" style="margin-right:20px;">{{ $category->name }}</small>
+                <a href="{{ route('post.by.cat',$category) }}">
+                  <small class="float-right" style="margin-right:20px;">{{ $category->name }}</small>
+                </a>
             @endforeach
           <p>{!! htmlspecialchars_decode($post->body) !!}</p>
             <h3>Tag Clouds</h3>
           @foreach ($post->tags as $tag)
-              <small class="float-left" style="margin-right:20px;border-raduis:5px;border:1px solid gray;">{{ $tag->name }}</small>
+              <a href="{{ route('post.by.tag', $tag) }}">
+                <small class="float-left" style="margin-right:20px;border-raduis:5px;border:1px solid gray;">{{ $tag->name }}</small>
+              </a>
           @endforeach
         </div>
       </div>

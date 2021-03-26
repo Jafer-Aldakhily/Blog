@@ -45,8 +45,7 @@
         
         <!-- Pager -->
         <div class="clearfix">
-          <?php echo e($posts->links()); ?>
-
+          
         </div>
       </div>
     </div>

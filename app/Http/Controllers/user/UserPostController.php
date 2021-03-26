@@ -90,11 +90,13 @@ class UserPostController extends Controller
 
     public function Category(Category $category)
     {
-        return $category;
+        $posts =  $category->posts()->latest()->paginate(2);
+        return view('user.home' ,compact('posts'));
     }
 
     public function Tag(Tag $tag)
     {
-
+        $posts =  $tag->posts()->latest()->paginate(2);
+        return view('user.home' ,compact('posts'));
     }
 }

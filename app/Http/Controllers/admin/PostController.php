@@ -45,6 +45,11 @@ class PostController extends Controller
         $post->sub_title = $request->sub_title;
         $post->slug = $request->slug;
         $post->body = $request->editor1;
+        // if($request->hasFile('image'))
+        // {
+        //     $imgName = $request->image->store();
+        // }
+        // $post->image = $imgName;
         $post->save();
         $post->categories()->sync($request->categories);
         $post->tags()->sync($request->tags);
@@ -89,6 +94,11 @@ class PostController extends Controller
         $post->sub_title = $request->sub_title;
         $post->slug = $request->post_slug;
         $post->body = $request->editor1;
+        // if($request->hasFile('image'))
+        // {
+        //     $imgName = $request->image->store();
+        // }
+        // $post->image = $imgName;
         $post->categories()->sync($request->categories);
         $post->tags()->sync($request->tags);
         $post->save();

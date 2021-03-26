@@ -32,7 +32,7 @@ Route::get('/',[UserPostController::class , 'index']);
 Route::get('/post/{post}', [UserPostController::class , 'show'] )->name('post.slug');
 
 // retriving post using tag
-Route::get('c' , [UserPostController::class ,'Tag'])->name('post.by.tag');
+Route::get('post/tag/{tag}' , [UserPostController::class ,'Tag'])->name('post.by.tag');
 
 // retriving post using category
 Route::get('post/category/{category}' , [UserPostController::class ,'Category'])->name('post.by.cat');

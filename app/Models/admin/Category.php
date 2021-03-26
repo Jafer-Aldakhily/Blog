@@ -13,7 +13,8 @@ class Category extends Model
     
     public function posts()
     {
-        return $this->belongsToMany(Post::class, 'category__posts')->withTimestamps();
+        return $this->belongsToMany(Post::class, 'category__posts')
+        ->withTimestamps();
     }
 
     public function getRouteKeyName()

@@ -45,7 +45,7 @@
         
         <!-- Pager -->
         <div class="clearfix">
-          {{ $posts->links() }}
+          {{-- {{ $posts->links() }} --}}
         </div>
       </div>
     </div>
