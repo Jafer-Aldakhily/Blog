@@ -76,6 +76,8 @@
 <!-- Select2 -->
 <script src="<?php echo e(asset('admin/plugins/select2/js/select2.full.min.js')); ?>"></script>
 
+<!-- CKEDITOR -->
+<script src="<?php echo e(asset('admin/ckeditor/ckeditor.js')); ?>"></script>
 
 <script>
   $(function () {

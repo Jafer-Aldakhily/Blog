@@ -76,6 +76,8 @@
 <!-- Select2 -->
 <script src="{{ asset('admin/plugins/select2/js/select2.full.min.js') }}"></script>
 
+<!-- CKEDITOR -->
+<script src="{{ asset('admin/ckeditor/ckeditor.js') }}"></script>
 
 <script>
   $(function () {

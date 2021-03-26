@@ -20,6 +20,8 @@
   <!-- Custom scripts for this template -->
   <script src="{{ asset('user/js/clean-blog.min.js') }}"></script>
 
+  <script src="{{ asset('user/js/prism.js') }}"></script>
+
 </body>
 
 </html>

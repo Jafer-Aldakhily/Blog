@@ -13,9 +13,7 @@ use App\Http\Controllers\admin\RoleController;
 //User Controllers
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\user\UserPostController;
-
-
-
+use App\Models\user\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,22 +26,16 @@ use App\Http\Controllers\user\UserPostController;
 |
 */
 
-Route::get('/', function () {
-    return view('user.home');
-});
+Route::get('/',[UserPostController::class , 'index']);
 
+// retriving post using slug
+Route::get('/post/{post}', [UserPostController::class , 'show'] )->name('post.slug');
 
-Route::prefix('user')->group(function () {
+// retriving post using tag
+Route::get('c' , [UserPostController::class ,'Tag'])->name('post.by.tag');
 
-    Route::resource('/post', UserPostController::class );
-});
-
-
-
-// This route for End_User operations
-Route::resource('/blog', UserController::class);
-
-
+// retriving post using category
+Route::get('post/category/{category}' , [UserPostController::class ,'Category'])->name('post.by.cat');
 
 // Amdin Grop Routes
 Route::prefix('admin')->group(function () {
@@ -58,9 +50,3 @@ Route::resource('/role', RoleController::class);
 // This route for admin operations
 Route::resource('/admin/panel', AdminController::class);
 
-
-
-// Admin home
-Route::get('/home' , function(){
-    return view('admin.home');
-});

@@ -24,6 +24,7 @@ class Post extends Model
         return $this->belongsToMany(Tag::class, 'tag__posts')->withTimestamps();
     }
 
+    // Note getRouteKeyName function using to tell laravel I want to get post data using slug
     public function getRouteKeyName()
     {
         return 'slug';

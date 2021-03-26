@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
+use App\Models\admin\Category;
 use Illuminate\Http\Request;
 use App\Models\user\Post;
+use App\Models\admin\Tag;
+
 class UserPostController extends Controller
 {
     /**
@@ -14,7 +17,8 @@ class UserPostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::latest()->paginate(5);
+        return view('user.home' ,compact('posts'));
     }
 
     /**
@@ -46,7 +50,8 @@ class UserPostController extends Controller
      */
     public function show(Post $post)
     {
-        // return $post;
+        // I changed $slug valriable to $post becaues I will get post data but you should need I get it by slug 
+        return view('user.post.show' ,compact('post'));
     }
 
     /**
@@ -81,5 +86,15 @@ class UserPostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function Category(Category $category)
+    {
+        return $category;
+    }
+
+    public function Tag(Tag $tag)
+    {
+
     }
 }

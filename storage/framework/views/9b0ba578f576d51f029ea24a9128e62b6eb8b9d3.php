@@ -16,4 +16,6 @@
 
   <!-- Custom styles for this template -->
   <link href="<?php echo e(asset('user/css/clean-blog.min.css')); ?>" rel="stylesheet">
-<?php /**PATH /home/jafer/Downloads/blog/resources/views/user/layout/head.blade.php ENDPATH**/ ?>
+
+  <!-- Prisme CSS -->
+<link rel="stylesheet" href="<?php echo e(asset('user/css/prism.css')); ?>"><?php /**PATH /home/jafer/Downloads/blog/resources/views/user/layout/head.blade.php ENDPATH**/ ?>

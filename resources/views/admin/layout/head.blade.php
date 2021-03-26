@@ -33,5 +33,3 @@
   <link rel="stylesheet" href="{{ asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css') }}">
 
 
-<!-- CKEDITOR -->
-<script src="//cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script>

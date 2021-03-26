@@ -33,5 +33,4 @@
   <link rel="stylesheet" href="<?php echo e(asset('admin/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')); ?>">
 
 
-<!-- CKEDITOR -->
-<script src="//cdn.ckeditor.com/4.16.0/full/ckeditor.js"></script><?php /**PATH /home/jafer/Downloads/blog/resources/views/admin/layout/head.blade.php ENDPATH**/ ?>
+<?php /**PATH /home/jafer/Downloads/blog/resources/views/admin/layout/head.blade.php ENDPATH**/ ?>
