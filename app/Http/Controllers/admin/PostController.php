@@ -45,11 +45,11 @@ class PostController extends Controller
         $post->sub_title = $request->sub_title;
         $post->slug = $request->slug;
         $post->body = $request->editor1;
-        // if($request->hasFile('image'))
-        // {
-        //     $imgName = $request->image->store();
-        // }
-        // $post->image = $imgName;
+        if($request->hasFile('post_image'))
+        {
+             $request->post_image->store('public');
+        }
+        $post->image = $request->post_image->store('public');
         $post->save();
         $post->categories()->sync($request->categories);
         $post->tags()->sync($request->tags);
@@ -90,15 +90,17 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+        
+
         $post->title = $request->post_title;
         $post->sub_title = $request->sub_title;
         $post->slug = $request->post_slug;
         $post->body = $request->editor1;
-        // if($request->hasFile('image'))
-        // {
-        //     $imgName = $request->image->store();
-        // }
-        // $post->image = $imgName;
+        if($request->hasFile('post_image'))
+        {
+          $imageName = $request->file('post_image')->store('public');
+        }
+        $post->image = $imageName;
         $post->categories()->sync($request->categories);
         $post->tags()->sync($request->tags);
         $post->save();
@@ -119,3 +121,5 @@ class PostController extends Controller
         return redirect()->back()->with('success' , 'Deleted Post Successfully');        
     }
 }
+
+

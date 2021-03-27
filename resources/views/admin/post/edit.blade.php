@@ -19,7 +19,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-      <form action="{{ route('post.update',$post->id) }}" method="POST">
+      <form action="{{ route('post.update',$post->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
       <div class="row">
@@ -43,7 +43,7 @@
             {{-- image file --}}
               <input class="form-check-input" type="checkbox" name="status" value="1">
               <label class="form-check-label">Publish</label>
-              {{-- Publis clear by 1 and 0 mean not publich  --}}
+              {{-- Publish clear by 1 and 0 mean not publish  --}}
           </div>
           <!-- /.form-group -->
           

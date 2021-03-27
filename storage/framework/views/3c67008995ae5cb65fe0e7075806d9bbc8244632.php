@@ -1,7 +1,7 @@
 <?php $__env->startSection('content'); ?>
 
 <!-- Page Header -->
-<header class="masthead" style="background-image: url('<?php echo e(asset('user/img/post-bg.jpg')); ?>')">
+<header class="masthead" style="background-image: url('<?php echo e(Storage::disk('local')->url($post->image)); ?>')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">

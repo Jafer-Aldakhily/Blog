@@ -17,7 +17,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-      <form action="<?php echo e(route('post.store')); ?>" method="POST">
+      <form action="<?php echo e(route('post.store')); ?>" method="POST" enctype="multipart/form-data">
         <?php echo csrf_field(); ?>
       <div class="row">
         <div class="col-md-6">

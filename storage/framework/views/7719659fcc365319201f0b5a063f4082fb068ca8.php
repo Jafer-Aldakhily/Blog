@@ -17,7 +17,7 @@
     </div>
     <!-- /.card-header -->
     <div class="card-body">
-      <form action="<?php echo e(route('post.update',$post->id)); ?>" method="POST">
+      <form action="<?php echo e(route('post.update',$post->id)); ?>" method="POST" enctype="multipart/form-data">
         <?php echo csrf_field(); ?>
         <?php echo method_field('PUT'); ?>
       <div class="row">
