@@ -26,7 +26,7 @@
         <tbody>
 
           @php
-          $i = 1;    
+          $i = 1;
           @endphp
 
           @foreach ($tags as $tag)
@@ -38,19 +38,19 @@
             <form id="delete-tag-{{ $tag->id }}" method="POST" action="{{ route('tag.destroy',$tag->id) }}" style="none;">
               @csrf
               @method('DELETE')
-              <td><a href=""><i class="fas fa-trash-alt text-danger" onclick=" 
+              <td><a href=""><i class="fas fa-trash-alt text-danger" onclick="
               if(confirm('Are tou sure delete it ?'))
               {
                 event.preventDefault();
                 document.getElementById('delete-tag-{{ $tag->id }}').submit();
               }
-              
-              
+
+
               else
               {
                 event.preventDefault();
               }
-              
+
               "></i></a></td>
             </form>
           </tr>
@@ -62,7 +62,7 @@
     <!-- /.card-body -->
   </div>
   <!-- /.card -->
-  
+
 
 
 @endsection

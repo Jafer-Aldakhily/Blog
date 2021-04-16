@@ -11,15 +11,15 @@ class Tag extends Model
     use HasFactory;
 
     protected $fillable = ['name' , 'slug'];
-    
+
     public function posts()
     {
         return $this->belongsToMany(Post::class, 'tag__posts')
         ->withTimestamps();
     }
 
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
+    // public function getRouteKeyName()
+    // {
+    //     return 'slug';
+    // }
 }

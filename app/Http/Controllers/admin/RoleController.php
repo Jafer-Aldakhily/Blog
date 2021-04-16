@@ -4,6 +4,9 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\admin\Role;
+use App\Models\admin\Permission;
+use Illuminate\Support\Facades\DB;      
 
 class RoleController extends Controller
 {
@@ -14,7 +17,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //
+        $roles = Role::all();
+        return view('admin.role.index',compact('roles'));
     }
 
     /**
@@ -24,7 +28,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        //
+        $permissions = Permission::all();
+        return view('admin.role.create' , compact('permissions'));
     }
 
     /**
@@ -35,7 +40,19 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validationData = $request->validate([
+            'name' => 'required|unique:roles'
+        ],[
+
+            'name.unique' => 'The role name is unique'
+        ]);
+
+        
+        $role = new Role();
+        $role->name = $request->name;
+        $role->save();
+        $role->permissions()->sync($request->permission);
+        return redirect()->back()->with('success' , 'Inserted Role Successfully');
     }
 
     /**
@@ -55,9 +72,10 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
-        //
+        $permissions = Permission::all();
+        return view('admin.role.edit',compact('role','permissions'));
     }
 
     /**
@@ -67,9 +85,14 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        //
+
+        $role->name = $request->name;
+        $role->permissions()->sync($request->permission);
+        $role->save();
+        return redirect()->back()->with('success' ,'Updated Role Successfully');
+
     }
 
     /**
@@ -78,8 +101,10 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return redirect()->back()->with('success' ,'Deleted Role Successfully');
+        
     }
 }

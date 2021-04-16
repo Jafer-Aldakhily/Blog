@@ -1,0 +1,128 @@
+@extends('admin.app')
+
+@section('content')
+@if (Session::has('success'))
+    <div class="alert alert-success">{{ Session('success') }}</div>
+@endif
+
+
+<!-- SELECT2 EXAMPLE -->
+<div class="card card-default">
+    <div class="card-header">
+      <h3 class="card-title">Admin Data</h3>
+
+      <div class="card-tools">
+        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+        {{-- <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button> --}}
+      </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <div class="container">  
+          <form action="{{route('add.admin')}}" method="POST">
+            @csrf   
+        <div class="row">
+        <div class="col-md-6 offset-md-4">
+          <div class="form-group">
+              <label class="col-form-label ml-2">User Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="name" placeholder="User Name">
+              </div>
+
+          </div>
+          <!-- /.form-group -->
+          
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+
+      <div class="row">
+        <div class="col-md-6 offset-md-4">
+          <div class="form-group">
+          <label class="col-form-label ml-2">Email</label>
+          <div class="col-sm-10">
+          <input type="text" class="form-control" name="email" placeholder="Email">
+          </div>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+          <label class="col-form-label ml-2">Password</label>
+          <div class="col-sm-10">
+          <input type="text" class="form-control" name="password" placeholder="Password">
+          </div>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+          <label class="col-form-label ml-2">Password Confirmation</label>
+          <div class="col-sm-10">
+          <input type="text" class="form-control" name="password_confirmation" placeholder="Password Confirmation">
+          </div>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+          <label class="col-form-label ml-2">Phone Number</label>
+          <div class="col-sm-10">
+          <input type="Number" class="form-control" name="phone" placeholder="Phone Number">
+          </div>
+          </div>
+          <!-- /.form-group -->
+
+          <div class="form-group">
+          <label class="col-form-label ml-2">Status</label>
+          <div class="col-sm-10">
+          <input type="checkbox" name="status" value="1">
+          </div>
+          </div>
+          <!-- /.form-group -->
+
+
+          <div class="form-group col-lg-12">
+            <div class="row">
+            <label style="margin-left:10px;">Assign Role</label>
+            </div>
+            <div class="row">
+              @foreach($roles as $role)
+            <div class="col-lg-4">
+              <input type="checkbox"  name="role[]" value="{{$role->id}}">
+              <label>{{$role->name}}</label><br>
+            </div>
+
+            @endforeach
+
+          </div>
+          </div>
+
+
+          <div class="form-group" style="margin-left:10px;">
+            <button type="submit" class="btn btn-primary">Add Admin</button>
+            <a class="btn btn-warning" href="{{route('user.index')}}">Back</a>
+          </div>
+          <!-- /.form-group -->
+
+        </div>
+        <!-- /.col -->
+
+      </div>
+      <!-- /.row -->
+
+          </form>
+        </div>
+
+
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+      This Page Allow You To Create A New user 
+    </div>
+  </div>
+  <!-- /.card -->
+
+    
+
+
+@endsection 

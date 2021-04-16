@@ -10,7 +10,8 @@
 <div class="card">
     <div class="card-header">
       <h3 class="card-title">Posts List</h3>
-      <center><a href="{{ route('post.create') }}" class="btn btn-success">Add New</a></center>
+      <center><a href="{{ route('post.create') }}" class="btn btn-success">Add New</a>
+      </center>
     </div>
     <!-- /.card-header -->
     <div class="card-body">

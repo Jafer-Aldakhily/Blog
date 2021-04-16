@@ -41,7 +41,7 @@
           <div class="form-group" style="margin-top:35px;">
             <input type="file" name="post_image">
             {{-- image file --}}
-              <input class="form-check-input" type="checkbox" name="status" value="1">
+              <input class="form-check-input" type="checkbox" name="status" value="1" @if($post->status == 1) checked @endif>
               <label class="form-check-label">Publish</label>
               {{-- Publish clear by 1 and 0 mean not publish  --}}
           </div>
@@ -107,7 +107,7 @@
 
           <label for="inputPassword3" class="col-sm-2 col-form-label">Posted By</label>
           <div class="col-sm-10">
-          <input type="password" class="form-control" name="posted_by" placeholder="Posted By">
+          <input type="text" class="form-control" name="posted_by" placeholder="Posted By" value="{{$post->posted_by}}">
           </div>
 
           </div>

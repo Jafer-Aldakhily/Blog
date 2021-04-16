@@ -7,6 +7,8 @@ use App\Models\admin\Category;
 use App\Models\admin\Tag;
 use Illuminate\Http\Request;
 use  App\Models\admin\Post;
+use  App\Models\admin\Admin;
+use Auth;
 
 class PostController extends Controller
 {
@@ -17,8 +19,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(10); 
-        return view('admin.post.index' , compact('posts'));
+        $posts = Post::latest()->paginate(10);
+        $id = Admin::find(Auth::guard('admin')->user()->id);
+        return view('admin.post.index' , compact('posts' , 'id'));
     }
 
     /**
@@ -41,19 +44,47 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $post = new Post();
+
+        if(empty($request->status))
+        {
+        $status = $request['status'] = 0;
         $post->title = $request->post_title;
         $post->sub_title = $request->sub_title;
         $post->slug = $request->slug;
+        $post->posted_by = $request->posted_by;
         $post->body = $request->editor1;
         if($request->hasFile('post_image'))
         {
-             $request->post_image->store('public');
+             $imageName = $request->post_image->store('public');
+             $post->image = $imageName;
         }
-        $post->image = $request->post_image->store('public');
+
+        $post->status = $status;
+        $post->save();
+        $post->categories()->sync($request->categories);
+        $post->tags()->sync($request->tags);
+        return redirect()->back()->with('success' , 'Inserted Post Successfully');   
+        }else
+        {
+        $status = $request['status'] = 1;
+        $post->title = $request->post_title;
+        $post->sub_title = $request->sub_title;
+        $post->slug = $request->slug;
+        $post->posted_by = $request->posted_by;
+        $post->body = $request->editor1;
+        if($request->hasFile('post_image'))
+        {
+             $imageName = $request->post_image->store('public');
+             $post->image = $imageName;
+        }
+        $post->status = $status;
         $post->save();
         $post->categories()->sync($request->categories);
         $post->tags()->sync($request->tags);
         return redirect()->back()->with('success' , 'Inserted Post Successfully');
+        }
+
+
 
     }
 
@@ -90,8 +121,10 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        
 
+        if(empty($request->status))
+        {
+        $status = $request['status'] = 0;
         $post->title = $request->post_title;
         $post->sub_title = $request->sub_title;
         $post->slug = $request->post_slug;
@@ -99,14 +132,38 @@ class PostController extends Controller
         if($request->hasFile('post_image'))
         {
           $imageName = $request->file('post_image')->store('public');
+          $post->image = $imageName;
         }
-        $post->image = $imageName;
+
+        $post->status = $status;
+        $post->categories()->sync($request->categories);
+        $post->tags()->sync($request->tags);
+        $post->save();
+        return redirect()->back()->with('success' , 'Updated Post Successfully');
+        }else
+        {
+        $status = $request['status'] = 1;
+        $post->title = $request->post_title;
+        $post->sub_title = $request->sub_title;
+        $post->slug = $request->post_slug;
+        $post->body = $request->editor1;
+        if($request->hasFile('post_image'))
+        {
+          $imageName = $request->file('post_image')->store('public');
+          $post->image = $imageName;
+        }
+
+        $post->status = $status;
         $post->categories()->sync($request->categories);
         $post->tags()->sync($request->tags);
         $post->save();
         return redirect()->back()->with('success' , 'Updated Post Successfully');
 
-        
+        }
+
+
+
+
     }
 
     /**
@@ -118,8 +175,25 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->back()->with('success' , 'Deleted Post Successfully');        
+        return redirect()->back()->with('success' , 'Deleted Post Successfully');
     }
+
+
+    public function test()
+    {
+         // return $admin->roles;
+        $admin = Admin::find(Auth::guard('admin')->user()->id);
+        return $admin;
+         // foreach ($admin->roles as $role) {
+         //     foreach ($role->permissions as $permission) {
+         //         if($permission->id == 1){
+
+         //             return $permission->name;
+         //         }
+         //         }
+         //     }
+    }
+
 }
 
 

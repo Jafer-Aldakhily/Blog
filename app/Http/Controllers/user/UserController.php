@@ -4,6 +4,8 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\admin\Admin;
+use App\Models\admin\Role;
 
 class UserController extends Controller
 {
@@ -14,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user.home');
+        $admins = Admin::all();
+        return view('admin.user.index',compact('admins'));
     }
 
     /**
@@ -24,7 +27,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return 'yes';
+        $roles = Role::all();
+        return view('admin.user.create' ,compact('roles'));
     }
 
     /**
@@ -35,7 +39,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $admin = new Admin();
+        $admin->name = $request->name;
+        $admin->email = $request->email;
+        $admin->password=  bcrypt($request->password);
+        $admin->phone = $request->phone;
+        $admin->status = $request->status;
+        $admin->save();
+        $admin->roles()->sync($request->role);
+        return redirect()->back()->with('success' , 'Added New Admin');
     }
 
     /**
@@ -57,7 +70,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $admin = Admin::find($id);
+        $roles = Role::all();
+        return view('admin.user.edit' ,compact('admin','roles'));
     }
 
     /**
@@ -69,8 +84,60 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        
+        // $validationData = $request->validate([
+        //     'name' => 'required',
+        //     'email' => 'required',
+        //     'phone' => 'required',
+        //     'status' => 'required',
+
+
+        // ]);
+        $admin = Admin::find($id);
+
+        if(empty($request->status))
+        {
+            $status = $request['status'] = 0;
+            $admin->name = $request->name;
+            $admin->email = $request->email;
+            $admin->phone = $request->phone;
+            $admin->status = $status;
+            $admin->roles()->sync($request->role);
+            $admin->save();
+            
+        }else
+        {
+            $request['status'] = 1;
+            $admin->name = $request->name;
+            $admin->email = $request->email;
+            $admin->phone = $request->phone;
+            $admin->status = $status;
+            $admin->roles()->sync($request->role);
+            $admin->save();
+        }
+
+        
+
+        return redirect()->back()->with('success' , 'Update Admin Successfully');
+
     }
+
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        Admin::find($id)->delete();
+        return redirect()->back()->with('success' , 'Deleted Admin Successfully');
+    }
+
+
 
     /**
      * Remove the specified resource from storage.
@@ -78,8 +145,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function logout()
     {
-        //
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

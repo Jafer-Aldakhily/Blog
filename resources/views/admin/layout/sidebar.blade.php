@@ -15,7 +15,7 @@
         <img src="{{ asset('admin/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="#" class="d-block">{{ Auth::guard('admin')->user()->name}}</a>
       </div>
     </div>
 
@@ -45,9 +45,22 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="{{route('user.index')}}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Users</p>
+              </a>
+            </li>
+            <hr class="bg-secondary">
+            <li class="nav-item">
+              <a href="{{route('role.index')}}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Roles</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{route('permission.index')}}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Permissions</p>
               </a>
             </li>
           </ul>
