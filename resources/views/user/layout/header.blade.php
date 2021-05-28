@@ -17,9 +17,11 @@
           <li class="nav-item">
             <a class="nav-link" href="post.html">Sample Post</a>
           </li>
+          @if(Auth::check())
           <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
+            <a class="nav-link" href="{{route('logout.custom')}}">LogOut</a>
           </li>
+          @endif
         </ul>
       </div>
     </div>

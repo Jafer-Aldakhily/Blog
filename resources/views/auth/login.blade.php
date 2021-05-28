@@ -19,12 +19,11 @@
 </header>
 
 
-<form action="{{ route('user.store') }}" method="POST">
+<form action="{{route('login.custom')}}" method="POST">
           @csrf
           <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                  
                   <div class="control-group">
             <div class="form-group floating-label-form-group controls">
               <label>Email Address</label>
@@ -35,14 +34,17 @@
           <div class="control-group">
             <div class="form-group col-xs-12 floating-label-form-group controls">
               <label>Password</label>
-              <input type="password" class="form-control" placeholder="Password" id="phone" required data-validation-required-message="Please enter your phone number.">
+              <input type="password" class="form-control" placeholder="Password" name="password" id="password" required data-validation-required-message="Please enter your password.">
               <p class="help-block text-danger"></p>
             </div>
           </div>
           <br>
           <div id="success"></div>
-          <button type="submit" class="btn btn-primary" id="sendMessageButton">login in</button>
-          <button type="submit" class="btn btn-primary" id="sendMessageButton">Register</button>
+          <button type="submit" class="btn btn-primary">login in</button>
+          <a href="{{route('register.page')}}" class="btn btn-success">Register</a>
+          @if(Session::has('faild'))
+          <span class="text-danger">{{Session('faild')}}</span>
+          @endif
         </form>
       </div>
     </div>

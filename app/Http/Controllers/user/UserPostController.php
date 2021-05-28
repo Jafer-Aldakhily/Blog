@@ -17,8 +17,8 @@ class UserPostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(5);
-        return view('user.home' ,compact('posts'));
+        $posts = Post::latest()->where('status',1)->paginate(5);
+        return view('user.home',compact('posts'));
     }
 
     /**
@@ -50,7 +50,7 @@ class UserPostController extends Controller
      */
     public function show(Post $post)
     {
-        // I changed $slug valriable to $post becaues I will get post data but you should need I get it by slug 
+        // I changed $slug valriable to $post becaues I will get post data but you should know I get it by slug 
         return view('user.post.show' ,compact('post'));
     }
 

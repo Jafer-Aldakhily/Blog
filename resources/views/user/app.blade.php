@@ -22,6 +22,8 @@
 
   <script src="{{ asset('user/js/prism.js') }}"></script>
 
+<!-- live wire script -- > 
+<livewire:scripts/>
 </body>
 
 </html>

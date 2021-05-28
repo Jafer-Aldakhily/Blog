@@ -45,8 +45,9 @@
           @endforeach
         </div>
       </div>
-
-      <div class = "fb-comments" data-href = "https: // localhost: 8000/post/{slug}" data-width = "" data-numposts = "5" > </div>    
+      <div>
+        <livewire:comment/>
+      </div>    
     </div>
   </article>
 

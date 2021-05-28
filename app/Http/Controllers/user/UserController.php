@@ -5,7 +5,11 @@ namespace App\Http\Controllers\user;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\admin\Admin;
+use App\Models\user\User;
 use App\Models\admin\Role;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class UserController extends Controller
 {
@@ -150,4 +154,6 @@ class UserController extends Controller
         Auth::logout();
         return redirect()->route('login');
     }
+
+    
 }

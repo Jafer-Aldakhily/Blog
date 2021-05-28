@@ -19,3 +19,6 @@
 
   <!-- Prisme CSS -->
 <link rel="stylesheet" href="{{ asset('user/css/prism.css') }}">
+
+<!-- live wire style -- >
+<livewire:styles>

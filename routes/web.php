@@ -15,7 +15,10 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 //User Controllers
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\user\UserPostController;
+use App\Http\Controllers\user\CustomAuthController;
 use App\Models\user\User;
+use App\Models\user\Post;
+// use App\Http\Livewire\Interaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +31,8 @@ use App\Models\user\User;
 |
 */
 
-Route::get('/',[UserPostController::class , 'index']);
+ Route::get('/',[UserPostController::class , 'index'])->name('/');
+// Route::get('/' ,[Interaction::class , 'render'])->name('/');
 
 // retriving post using slug
 Route::get('/post/{post}', [UserPostController::class , 'show'] )->name('post.slug');
@@ -65,10 +69,14 @@ Route::group(['prefix' => 'admin' , 'middleware' => ['admin:admin']],function()
 //Admin Logout
 Route::get('/admin/logout' , [AdminController::class , 'destroy'])->name('admin.logout');
 
-//User Logout
-Route::get('/logout' , [UserController::class , 'destroy'])->name('user.logout');
-//User Login Store
-Route::post('/user/login' , [AuthenticatedSessionController::class , 'store'])->name('user.store');
+
+//Custom Login
+Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom');
+Route::get('custom-logout', [CustomAuthController::class, 'logout'])->name('logout.custom');
+
+//Custom Register
+Route::get('register-page' , [CustomAuthController::class , 'create'])->name('register.page');
+Route::post('custom-register', [CustomAuthController::class, 'registration'])->name('register.custom');  
 
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
     return view('admin.home');
@@ -93,3 +101,11 @@ Route::post('add/admin' , [UserController::class , 'store'])->name('add.admin');
 
 
 Route::get('test' , [PostController::class , 'test'])->name('r.test');
+
+Route::get('welcome' , function(){
+	return view('welcome');
+
+});
+
+
+/* You should know route named login using to redirect user to login page */

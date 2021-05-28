@@ -1,3 +1,4 @@
+
 @extends('user.app')
 
 @section('content')
@@ -34,6 +35,9 @@
               {{ $post->sub_title }}
             </h3>
           </a>
+          <!-- live wire component -->
+          <p><livewire:interaction :post="$post" :posts="$posts"/>
+          </p>
           <p class="post-meta">Posted by
             <a href="#">Start Bootstrap</a>
             {{ $post->created_at->diffForHumans() }}</p>
@@ -54,3 +58,4 @@
   <hr>
 
 @endsection
+
