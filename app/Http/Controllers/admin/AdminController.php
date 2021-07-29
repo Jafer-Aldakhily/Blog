@@ -16,6 +16,8 @@ use Laravel\Fortify\Contracts\LogoutResponse;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
 use Laravel\Fortify\Http\Requests\LoginRequest;
+use App\Models\admin\Admin;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -115,6 +117,33 @@ class AdminController extends Controller
         $request->session()->regenerateToken();
 
         return app(LogoutResponse::class);
+    }
+
+
+    public function register(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'password' =>  'required|between:8,255',
+        ]);
+
+
+        $admin = new Admin;
+        $admin->name = $request->name;
+        $admin->name = $request->name;
+        $admin->phone = $request->phone;
+        $admin->email = $request->email;
+        $admin->password = Hash::make($request->password);
+        $admin->save();
+
+
+        return redirect()->route('admin.login');
+
+
+
+
     }
 }
 

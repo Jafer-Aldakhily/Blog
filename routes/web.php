@@ -62,7 +62,7 @@ Route::resource('/admin/panel', AdminController::class);
 
 Route::group(['prefix' => 'admin' , 'middleware' => ['admin:admin']],function()
 {
-	Route::get('/login' , [AdminController::class , 'loginForm']);
+	Route::get('/login' , [AdminController::class , 'loginForm'])->name('admin.login');
 	Route::post('/login' , [AdminController::class , 'store'])->name('admin.store');
 
 });
@@ -76,7 +76,7 @@ Route::get('custom-logout', [CustomAuthController::class, 'logout'])->name('logo
 
 //Custom Register
 Route::get('register-page' , [CustomAuthController::class , 'create'])->name('register.page');
-Route::post('custom-register', [CustomAuthController::class, 'registration'])->name('register.custom');  
+Route::post('custom-register', [CustomAuthController::class, 'registration'])->name('register.custom');
 
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
     return view('admin.home');
@@ -87,7 +87,7 @@ Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function 
 })->name('dashboard');
 
 
-/* 
+/*
 You Should now the user folder which it inside the admin folder it means that admin
 can create new admins which call it as super admin.
 */
@@ -109,3 +109,11 @@ Route::get('welcome' , function(){
 
 
 /* You should know route named login using to redirect user to login page */
+
+
+// admin register
+
+Route::get('admin/register' , function(){
+    return view('auth.adminRegister');
+})->name('admin.register');
+Route::post('admin/register/store' , [AdminController::class , 'register'])->name('save.admin');
